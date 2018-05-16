@@ -91,7 +91,7 @@ bintray {
         repo = 'gradle-plugins'
         name = 'gradle-npm-repository-plugin'
         licenses = ['MIT']
-        vcsUrl = 'https://github.com/artfable/gradle-npm-plugin.git'
+        vcsUrl = 'https://github.com/artfable/gradle-npm-repository-plugin.git'
         version {
             attributes = ['gradle-plugin': 'artfable.npm:com.github.artfable.gradle:gradle-npm-repository-plugin']
         }
