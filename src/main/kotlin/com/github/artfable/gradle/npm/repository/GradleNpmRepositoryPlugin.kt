@@ -64,15 +64,19 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
             val dependencyResolver: DependencyResolver = DependencyResolver(objectMapper, task.logger, config.repository)
             dependencyResolver.resolveDependencies(dependencies, config.excludes).forEach { (name, url) ->
                 task.logger.lifecycle("Download [$name]: $url")
+                val tempDir = Files.createTempDirectory(UUID.randomUUID().toString()).toFile()
+                val directory = File(output.absolutePath + File.separatorChar + name)
                 val tar = Files.createTempFile(name.replace(File.separator, ""), UUID.randomUUID().toString() + ".tgz").toFile()
                 tar.writeBytes(URL(url).readBytes())
-                val directory = output.absolutePath + File.separatorChar + name
-                File(directory).mkdirs()
-                project.tarTree(tar).files.forEach { file ->
-                    val newFile = File(directory + File.separatorChar + file.name)
-                    newFile.delete()
-                    Files.move(file.toPath(), newFile.toPath())
+                directory.deleteRecursively()
+                directory.mkdirs()
+                project.copy {
+                    it.from(project.tarTree(tar)).into(tempDir)
                 }
+                project.copy {
+                    it.from(tempDir.path + File.separatorChar + "package").into(directory)
+                }
+                tempDir.delete()
                 tar.delete()
             }
         }
