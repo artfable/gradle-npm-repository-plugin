@@ -11,7 +11,7 @@ buildscript {
         kotlin_version = '1.2.71'
         artifact_plugin_version = '0.0.1'
         jakson_version = '2.9.5'
-        bintray_version = '1.7.1'
+        bintray_version = '1.8.4'
 
         junit_version = '5.1.0'
         mockito_version = '2.17.0'
