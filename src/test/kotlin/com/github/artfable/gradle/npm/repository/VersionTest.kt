@@ -45,7 +45,7 @@ internal class VersionTest {
 
     @Test
     fun testNext() {
-        assertEquals(Version("1.2.5"), Version("1.2.4-rc").next())
+        assertEquals(Version("1.2.4"), Version("1.2.4-rc").next())
         assertEquals(Version("1.2.4.4.9"), Version("1.2.4.4.8").next())
     }
 
@@ -80,5 +80,16 @@ internal class VersionTest {
         assertFalse(interval1.match(version3))
         assertFalse(interval2.match(version2))
         assertTrue(interval3.match(version3))
+    }
+
+    @Test fun testMatchWithSuffix() {
+        val version = Version("1.2.5-rc.10")
+
+        val interval = Interval(Version("1.2.5"), Version("1.3.0"), false, true)
+        val interval2 = Interval(Version("1.2.4"), Version("1.2.5"), false, true)
+
+        assertEquals("-rc.10", version.suffix)
+        assertFalse(interval.match(version))
+        assertTrue(interval2.match(version))
     }
 }

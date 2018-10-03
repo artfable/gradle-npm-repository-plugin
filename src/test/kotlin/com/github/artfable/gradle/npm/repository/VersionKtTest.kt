@@ -49,4 +49,10 @@ internal class VersionKtTest {
                 Interval(null, version, false, true),
                 Interval()), versions)
     }
+
+    @Test
+    fun testParseVersion_suffix() {
+        val version = Version("1.2.5-rc")
+        assertEquals(Interval(version, version, false, false), parseVersion(version.versionStr)[0])
+    }
 }

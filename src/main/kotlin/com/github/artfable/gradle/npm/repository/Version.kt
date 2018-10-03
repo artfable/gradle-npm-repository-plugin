@@ -43,7 +43,7 @@ fun parseVersion(versionCondition: String): List<Interval> {
                     current.end = Version(versionValue!!).next()
                 } else {
                     val version = Version(versionValue!!)
-                    current = Interval(version, version.next(), false, true)
+                    current = Interval(version, if (version.suffix != null) version else version.next(), false, version.suffix == null)
                 }
             }
             condition == "~" -> {
@@ -113,6 +113,9 @@ data class Version(val versionStr: String): Comparable<Version> {
     }
 
     fun next(): Version {
+        suffix?.let {
+            return Version(versionStr.removeSuffix(suffix))
+        }
         return Version(mutableParts.dropLast(1).joinToString(separator = ".", postfix = ".") + (mutableParts.last() + 1))
     }
 

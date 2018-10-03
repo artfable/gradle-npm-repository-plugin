@@ -33,6 +33,8 @@ class DependencyResolver(private val objectMapper: ObjectMapper, private val log
                 if (intervals.any { it.match(version) }) {
                     return@forEach
                 }
+                logger.debug("Delete dependencies for [$name] version [${version.versionStr}]")
+                resolvedVersions.remove(name)
                 others.remove(name)
             }
 
@@ -56,14 +58,14 @@ class DependencyResolver(private val objectMapper: ObjectMapper, private val log
             }
 
             if (!resolvedVersions.containsKey(name)) {
-                throw IllegalArgumentException("Can't resolve version for [$name]")
+                throw IllegalArgumentException("Can't resolve version for [$name]; required ${dependencies[name]}")
             }
 
             logger.info("Preliminarily version for [$name] resolved as [${resolvedVersions[name]?.versionStr}]")
         }
 
         childDependencies.forEach { name ->
-            others[name] ?: throw IllegalStateException("Lost dependencies for [$name]")
+            others[name] ?: throw IllegalStateException("Lost dependencies for [$name]; Resolved version was [${resolvedVersions[name]?.versionStr}], required ${dependencies[name]}")
             processDependencies(others[name]!!, excludes)
         }
     }
