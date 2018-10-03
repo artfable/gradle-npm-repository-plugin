@@ -1,5 +1,5 @@
 # Gradle NPM Repository Plugin
-(version: 0.0.1)
+(version: 0.0.3)
 
 ## Overview
 The plugin that was written on [kotlin](https://kotlinlang.org) for loading dependencies from [npm](https://www.npmjs.com/) repository. It loads dependencies **without** installing or loading nodeJS! 
