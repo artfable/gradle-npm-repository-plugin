@@ -25,11 +25,15 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
         val dependencies: MutableMap<String, List<Interval>> = HashMap()
 
         task.doFirst {
-//            config.packageJSONFile ?: throw IllegalArgumentException("package.json file isn't specified")
             config.output ?: throw IllegalArgumentException("Output directory isn't specified")
 
-//            val packageJSONFile = File(config.packageJSONFile)
             val output = File(config.output)
+
+            if (!output.exists()) {
+                if (!output.mkdirs()) {
+                    throw IllegalArgumentException("Provided output dir isn't exist, and an attempt to create it failed")
+                }
+            }
 
             if (!output.isDirectory) {
                 throw IllegalArgumentException("Provided incorrect output dir")
