@@ -25,7 +25,7 @@ Parameters to configure:
 + dependencies - map of dependencies and their versions (versions can be specified according [semver](https://docs.npmjs.com/misc/semver))
 + packageJSONFile - package.json file (incompatible with `dependencies`)
 + output - path to output directory, where unpacked dependencies will be saved
-+ excludes - names of decedent dependencies that should be ignored (for example: you put dependencies A of v1 (version 1) and B of version >= 1 
++ excludes - names of descendant dependencies that should be ignored (for example: you put dependencies A of v1 (version 1) and B of version >= 1 
 and dependency A of v1 depends on B of v1 and latest version of B in a repository is 2. 
 If B is in excluded, its version will be resolved as 2, otherwise 1)
 
