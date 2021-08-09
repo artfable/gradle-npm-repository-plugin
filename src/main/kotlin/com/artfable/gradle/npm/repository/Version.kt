@@ -1,4 +1,4 @@
-package com.github.artfable.gradle.npm.repository
+package com.artfable.gradle.npm.repository
 
 import java.util.*
 import kotlin.collections.ArrayList

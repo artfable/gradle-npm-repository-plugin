@@ -1,4 +1,4 @@
-package com.github.artfable.gradle.npm.repository
+package com.artfable.gradle.npm.repository
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -25,9 +25,7 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
         val dependencies: MutableMap<String, List<Interval>> = HashMap()
 
         task.doFirst {
-            config.output ?: throw IllegalArgumentException("Output directory isn't specified")
-
-            val output = File(config.output)
+            val output = File(config.output ?: throw IllegalArgumentException("Output directory isn't specified"))
 
             if (!output.exists()) {
                 if (!output.mkdirs()) {
@@ -58,7 +56,7 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
             }
 
             config.dependencies.forEach { (name, value) ->
-                dependencies.put(name, parseVersion(value))
+                dependencies[name] = parseVersion(value)
             }
 
             if (!config.repository.endsWith("/")) {
@@ -71,14 +69,15 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
                 val tempDir = Files.createTempDirectory(UUID.randomUUID().toString()).toFile()
                 val directory = File(output.absolutePath + File.separatorChar + name)
                 val tar = Files.createTempFile(name.replace(File.separator, ""), UUID.randomUUID().toString() + ".tgz").toFile()
+
                 tar.writeBytes(URL(url).readBytes())
                 directory.deleteRecursively()
                 directory.mkdirs()
                 project.copy {
-                    it.from(project.tarTree(tar)).into(tempDir)
+                    from(project.tarTree(tar)).into(tempDir)
                 }
                 project.copy {
-                    it.from(tempDir.path + File.separatorChar + "package").into(directory)
+                    from(tempDir.path + File.separatorChar + "package").into(directory)
                 }
                 tempDir.delete()
                 tar.delete()
@@ -87,7 +86,7 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
     }
 }
 
-open class GradleNpmRepositoryExtension() {
+open class GradleNpmRepositoryExtension {
     var packageJSONFile: String? = null
     var output: String? = null
     var repository: String = "https://registry.npmjs.org/"

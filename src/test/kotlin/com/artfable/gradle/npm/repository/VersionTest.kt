@@ -1,4 +1,4 @@
-package com.github.artfable.gradle.npm.repository
+package com.artfable.gradle.npm.repository
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test

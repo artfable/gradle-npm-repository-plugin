@@ -1,4 +1,4 @@
-package com.github.artfable.gradle.npm.repository
+package com.artfable.gradle.npm.repository
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -45,14 +45,16 @@ class DependencyResolver(private val objectMapper: ObjectMapper, private val log
             for (versionStr in versionsNode.fieldNames().asSequence().asIterable().reversed()) {
                 val version = Version(versionStr)
                 if (intervals.any { it.match(version) } && matchAllDependencies(name, version)) {
-                    resolvedVersions.put(name, version)
+                    resolvedVersions[name] = version
                     val childDependencyNode: JsonNode? = versionsNode[versionStr]?.get("dependencies")
                     val decedentDependencies: MutableMap<String, List<Interval>> = HashMap()
                     childDependencyNode?.fields()?.forEach { (decedentName, value) ->
-                        if (!excludes.contains(decedentName)) decedentDependencies.put(decedentName, parseVersion(value.textValue()))
+                        if (!excludes.contains(decedentName)) {
+                            decedentDependencies[decedentName] = parseVersion(value.textValue())
+                        }
                     }
                     childDependencies.add(name)
-                    others.put(name, decedentDependencies)
+                    others[name] = decedentDependencies
                     break
                 }
             }

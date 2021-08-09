@@ -1,4 +1,4 @@
-package com.github.artfable.gradle.npm.repository
+package com.artfable.gradle.npm.repository
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -42,12 +42,14 @@ internal class VersionKtTest {
         val versions = parseVersion(">=$versionValue || $versionValue - $versionValue || ~$versionValue || <${versionValue + 1} >$versionValue || <$versionValue || *")
 
         assertEquals(6, versions.size)
-        assertIterableEquals(listOf(Interval(version, null, false, false),
+        assertIterableEquals(listOf(
+            Interval(version, null, false, false),
                 Interval(version, versionNext, false, true),
                 Interval(version, Version("1.3"), false, true),
                 Interval(version, Version(versionValue + 1), true, true),
                 Interval(null, version, false, true),
-                Interval()), versions)
+                Interval()
+        ), versions)
     }
 
     @Test
