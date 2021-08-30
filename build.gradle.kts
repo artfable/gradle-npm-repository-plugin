@@ -2,7 +2,7 @@ group = "com.artfable.gradle"
 version = "0.0.5"
 
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version "1.5.21"
     `kotlin-dsl`
     `maven-publish`
     id("com.jfrog.artifactory") version "4.24.14"
