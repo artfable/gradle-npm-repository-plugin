@@ -68,7 +68,7 @@ class GradleNpmRepositoryPlugin: Plugin<Project> {
                 task.logger.lifecycle("Download [$name]: $url")
                 val tempDir = Files.createTempDirectory(UUID.randomUUID().toString()).toFile()
                 val directory = File(output.absolutePath + File.separatorChar + name)
-                val tar = Files.createTempFile(name.replace(File.separator, ""), UUID.randomUUID().toString() + ".tgz").toFile()
+                val tar = Files.createTempFile(name.replace("/", ""), UUID.randomUUID().toString() + ".tgz").toFile()
 
                 tar.writeBytes(URL(url).readBytes())
                 directory.deleteRecursively()

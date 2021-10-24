@@ -1,5 +1,5 @@
 group = "com.artfable.gradle"
-version = "0.0.5"
+version = "0.0.6"
 
 plugins {
     kotlin("jvm") version "1.5.21"

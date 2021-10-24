@@ -1,5 +1,5 @@
 # Gradle NPM Repository Plugin
-[ ![artifactory](https://img.shields.io/badge/Artifactory-v0.0.5-green) ](https://artfable.jfrog.io/ui/packages/gav:%2F%2Fcom.artfable.gradle:gradle-npm-repository-plugin)
+[ ![artifactory](https://img.shields.io/badge/Artifactory-v0.0.6-green) ](https://artfable.jfrog.io/ui/packages/gav:%2F%2Fcom.artfable.gradle:gradle-npm-repository-plugin)
 
 ## Overview
 The plugin that was written on [kotlin](https://kotlinlang.org) for loading dependencies from [npm](https://www.npmjs.com/) repository. It loads dependencies **without** installing or loading nodeJS! 
@@ -11,7 +11,7 @@ buildscript {
         maven(url = "https://artfable.jfrog.io/artifactory/default-maven-local")
     }
     dependencies {
-        classpath("com.artfable.gradle:gradle-npm-repository-plugin:0.0.5")
+        classpath("com.artfable.gradle:gradle-npm-repository-plugin:0.0.6")
     }
 }
 
