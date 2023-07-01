@@ -1,4 +1,6 @@
 # Gradle NPM Repository Plugin
+Moved to https://gitlab.com/artfable-public/gradle-plugins/gradle-npm-repository-plugin
+
 [ ![artifactory](https://img.shields.io/badge/Artifactory-v0.0.6-green) ](https://artfable.jfrog.io/ui/packages/gav:%2F%2Fcom.artfable.gradle:gradle-npm-repository-plugin)
 
 ## Overview
